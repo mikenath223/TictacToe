@@ -17,7 +17,7 @@ const GameScreen = ({ playerNames }) => {
   const [gameOver, setGameOver] = useState(false);
   const [noWinner, setNoWinner] = useState(false);
   const [scores, setScores] = useState(INITIALSCORES);
-  console.log({ filledPositions });
+
   useEffect(() => {
     if (Object.keys(filledPositions).length === 9 && !gameOver) {
       setGameOver(true);

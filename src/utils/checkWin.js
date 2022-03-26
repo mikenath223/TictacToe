@@ -9,7 +9,6 @@ export const checkWin = (filledPositions, currentPlayer) => {
   WINNING_POSITIONS.forEach((pos) => {
     if (!isWinnerFound) {
       isWinnerFound = pos.every((posInner) => objFiltPlayerPositions[posInner]);
-      console.log({ isWinnerFound });
     }
   });
 
