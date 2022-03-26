@@ -32,6 +32,7 @@ const Form = ({ handleSavePlayers }) => {
               type="text"
               name={PLAYER1}
               required
+              maxLength={5}
               className="border-gray-50 border-2 p-1"
               value={playerNames[PLAYER1] || ""}
               onChange={(e) => handleChange(e, PLAYER1)}
@@ -44,6 +45,7 @@ const Form = ({ handleSavePlayers }) => {
               type="text"
               name={PLAYER2}
               required
+              maxLength={5}
               className="border-gray-50 border-2 p-1"
               value={playerNames[PLAYER2] || ""}
               onChange={(e) => handleChange(e, PLAYER2)}
