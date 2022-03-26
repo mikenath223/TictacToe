@@ -5,6 +5,7 @@ import { checkWin } from "utils/checkWin";
 import ScoreTrack from "./ScoreTrack";
 import Button from "components/Button";
 import Header from "components/Header";
+import "../index.css";
 
 const getRandomPlayer = () => {
   const randomOrder = Math.floor(Math.random() * 1);
@@ -30,7 +31,13 @@ const GameScreen = ({ playerNames }) => {
     setCurrentPlayer(nextPlayer);
   };
 
-  const handleGameOver = () => {};
+  const handleGameOver = () => {
+    setGameOver(true);
+    setScores({
+      ...scores,
+      [currentPlayer]: scores[currentPlayer] + 1,
+    });
+  };
 
   const handleClickCell = (cellOrder) => {
     const newPositions = {
@@ -43,7 +50,11 @@ const GameScreen = ({ playerNames }) => {
     setFilledPositions(newPositions);
   };
 
-  const handleNextGameRound = () => {};
+  const handleNextGameRound = () => {
+    setGameOver(false);
+    setFilledPositions({});
+    setNoWinner(false);
+  };
 
   const getCellInput = (cellOrder) => {
     if (filledPositions[cellOrder] === PLAYER1) {
@@ -57,7 +68,7 @@ const GameScreen = ({ playerNames }) => {
 
   const renderGameOver = () => {
     return (
-      <div className="flex flex-col gap-5 items-center w-80">
+      <div className="flex flex-col gap-5 items-center w-80 absolute top-0 bottom-0 gameOver">
         <span className="text-orange-900">
           {noWinner ? "No Winner" : `${playerNames[currentPlayer]} WON!!!`}
         </span>
@@ -69,16 +80,29 @@ const GameScreen = ({ playerNames }) => {
   return (
     <div className="flex flex-col items-center gap-5">
       <Header />
-      <section>
-        {!gameOver ? (
+      <section className="flex gap-10 md:items-start items-center flex-col md:flex-row">
+        <ScoreTrack
+          isCurrentPlayer={currentPlayer === PLAYER1}
+          player={playerNames[PLAYER1]}
+          score={scores[PLAYER1]}
+          gameOver={gameOver}
+          symbol="X"
+        />
+        <div className="relative">
           <Grid
             getCellInput={getCellInput}
             handleClickCell={handleClickCell}
             filledPositions={filledPositions}
           />
-        ) : (
-          renderGameOver()
-        )}
+          {gameOver && renderGameOver()}
+        </div>
+        <ScoreTrack
+          isCurrentPlayer={currentPlayer === PLAYER2}
+          player={playerNames[PLAYER2]}
+          score={scores[PLAYER2]}
+          gameOver={gameOver}
+          symbol="O"
+        />
       </section>
     </div>
   );
