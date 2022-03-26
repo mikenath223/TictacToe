@@ -18,6 +18,13 @@ const GameScreen = ({ playerNames }) => {
   const [noWinner, setNoWinner] = useState(false);
   const [scores, setScores] = useState(INITIALSCORES);
   console.log({ filledPositions });
+  useEffect(() => {
+    if (Object.keys(filledPositions).length === 9 && !gameOver) {
+      setGameOver(true);
+      setNoWinner(true);
+    }
+  }, [filledPositions, gameOver]);
+
   const updateCurrentPlayer = () => {
     const nextPlayer = currentPlayer === PLAYER1 ? PLAYER2 : PLAYER1;
     setCurrentPlayer(nextPlayer);
